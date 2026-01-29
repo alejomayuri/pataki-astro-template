@@ -1,16 +1,83 @@
 ---
-
+import '../styles/global.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/blocks/Hero.astro";
+import ReservationSection from "../components/blocks/ServiceDetailsSection.astro";
+import ServiceOptionsSection from "../components/blocks/ServiceOptionsSection.astro";
+import ImageTextSection from "../components/blocks/ImageTextSection.astro";
+import ContactForm from "../components/blocks/ContactForm.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Diseño y desarrollo web">
+	<Hero
+		title="Experience personalized luxury with Pandora Limo Service, dedicated to catering to the needs of the discerning traveler."
+		subtitle="(970) 880-5218 | (970) 708-1041"
+		ctaText="BOOK NOW"
+		ctaHref="#reservation"
+		backgroundImage="/images/hero.png"
+		overlayOpacity={0.6}
+		size="md"
+	/>
+	<ReservationSection
+		title="Make a Reservation"
+		description="Private Chauffeur Service: Call or Email Us for the Best Price in Town"
+		image={{
+			src: "/images/reservation.jpg",
+			alt: "Restaurant interior"
+		}}
+		items={[
+			{ label: "Monotrose Airport", observations: "Private SUV (1-6 Passengers)", price: { amount: "$350", detail: "* gratuity and airport fees" } },
+			{ label: "Telluride Airport", observations: "Private SUV (1-6 Passengers)", price: { amount: "$100", detail: "* gratuity and airport fees" } },
+			{ label: "Durango & Grand Junction Airport", observations: "Private SUV (1-6 Passengers)", price: { amount: "$490", detail: "* gratuity and airport fees" } },
+		]}
+		contact={{
+			phone: "(970) 880-5218",
+			email: "reservations@pandalimo.com"
+		}}
+	/>
+	<ServiceOptionsSection
+		title="Rates"
+		description={`Embark on a luxurious journey during Telluride Ski Season with our exclusive rates, ensuring a seamless and enjoyable experience for you and your party.
+
+			All rates are $350 + gratuity and airport fees each way.
+			Gratuity and Airport Fees are included.
+			Rates are for the entire vehicle (7 Passenger Limit Per SUV).`}
+		options={[
+			{
+				title: "Private Airport Transportation",
+				image: { src: "/images/option1.jpg" },
+				ctaText: "RESERVE NOW",
+				ctaHref: "/contact",
+			},
+			{
+				title: "Weddings and Groups",
+				image: { src: "/images/option2.jpg" },
+				ctaText: "RESERVE NOW",
+				ctaHref: "/contact",
+			},
+			{
+				title: "Private Car Services",
+				image: { src: "/images/option3.jpg" },
+				ctaText: "RESERVE NOW",
+				ctaHref: "/contact",
+			},
+		]}
+	/>
+	<ImageTextSection
+		image={{
+			src: "/images/about.jpeg",
+			alt: "Luxury SUV transportation"
+		}}
+		title="About Us"
+		text={`At Pandora Limo Service, we prioritize every detail, placing a strong emphasis on passenger safety. Our commitment to security, combined with our team of highly skilled drivers and impeccably maintained vehicles, ensures an unparalleled private transportation experience for all our passengers.
+
+			Rest assured, our fleet is specially equipped to handle secure winter travel, 
+			allowing you to embark on your journey with confidence and comfort. 
+			Choose Pandora Limo Service for a travel experience that exceeds your expectations.`}
+	/>
+	<ContactForm
+		title="Get in Touch"
+		description="Send us a message and we'll get back to you shortly."
+		submitLabel="Send Message"
+	/>
+</BaseLayout>

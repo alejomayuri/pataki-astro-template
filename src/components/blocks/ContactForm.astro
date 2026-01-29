@@ -1,0 +1,70 @@
+---
+interface Props {
+  title?: string
+  description?: string
+  submitLabel?: string
+}
+
+const {
+  title = "Contact Us",
+  description,
+  submitLabel = "Send"
+} = Astro.props
+---
+
+<section class="py-16">
+  <div class="max-w-2xl mx-auto px-4">
+    {title && <h2 class="text-3xl font-semibold mb-4">{title}</h2>}
+    {description && (
+      <p class="text-gray-600 mb-8">{description}</p>
+    )}
+
+    <form class="space-y-6">
+      <!-- Name -->
+      <div>
+        <label class="block text-sm font-medium mb-1">
+          Name
+        </label>
+        <input
+          type="text"
+          name="name"
+          required
+          class="w-full border rounded-lg px-4 py-2"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium mb-1">
+          Email
+        </label>
+        <input
+          type="email"
+          name="email"
+          required
+          class="w-full border rounded-lg px-4 py-2"
+        />
+      </div>
+
+      <!-- Message -->
+      <div>
+        <label class="block text-sm font-medium mb-1">
+          Message
+        </label>
+        <textarea
+          name="message"
+          rows="5"
+          required
+          class="w-full border rounded-lg px-4 py-2"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="bg-black text-white px-6 py-3 rounded-lg"
+      >
+        {submitLabel}
+      </button>
+    </form>
+  </div>
+</section>

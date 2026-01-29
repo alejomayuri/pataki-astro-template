@@ -1,0 +1,66 @@
+---
+const {
+  title,
+  subtitle,
+  ctaText = "Contactar",
+  ctaHref = "#",
+  align = "center",
+
+  backgroundImage,
+  overlay = true,
+  overlayOpacity = 0.5,
+  minHeight = "90vh",
+
+  size = "lg",
+} = Astro.props;
+
+const titleSize =
+  size === "lg"
+    ? "text-4xl md:text-6xl"
+    : "text-3xl md:text-4xl";
+---
+
+<section
+  class="relative flex items-center"
+  style={`
+    min-height: ${minHeight};
+    ${backgroundImage ? `background-image: url(${backgroundImage});` : ""}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  `}
+>
+  {overlay && backgroundImage && (
+    <div
+      class="absolute inset-0 bg-black"
+      style={`opacity: ${overlayOpacity}`}
+    />
+  )}
+
+  <div
+    class={`relative z-10 max-w-4xl mx-auto px-6 w-full ${
+      align === "left" ? "text-left" : "text-center"
+    }`}
+  >
+    <h1 class={`font-bold tracking-tight text-white ${titleSize} hero-title-shadow-strong`}>
+      {title}
+    </h1>
+
+    {subtitle && (
+      <p class="mt-6 font-bold text-xl max-w-2xl mx-auto text-white hero-title-shadow-soft">
+        {subtitle}
+      </p>
+    )}
+
+    {ctaText && (
+      <div class="mt-10">
+        <a
+          href={ctaHref}
+          class="inline-block bg-white text-black px-12 py-4 rounded-xl text-m font-medium hover:opacity-90 transition"
+        >
+          {ctaText}
+        </a>
+      </div>
+    )}
+  </div>
+</section>

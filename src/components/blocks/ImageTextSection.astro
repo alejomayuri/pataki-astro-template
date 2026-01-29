@@ -1,0 +1,36 @@
+---
+interface Props {
+  image: {
+    src: string
+    alt: string
+  }
+  title?: string
+  text?: string
+  reverse?: boolean
+}
+
+const { image, title, text, reverse = false } = Astro.props
+---
+
+<section class="py-16">
+  <div
+    class={`max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center ${
+      reverse ? 'md:flex-row-reverse' : ''
+    }`}
+  >
+    <!-- Image -->
+    <div>
+      <img
+        src={image.src}
+        alt={image.alt}
+        class="w-full h-full object-cover rounded-xl"
+      />
+    </div>
+
+    <!-- Content -->
+    <div>
+      {title && <h2 class="text-4xl font-bold d mb-4">{title}</h2>}
+      {text && <p class="mt-4 text-lg leading-relaxed whitespace-pre-line">{text}</p>}
+    </div>
+  </div>
+</section>

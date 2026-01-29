@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hero-title-shadow-soft {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.hero-title-shadow-strong {
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
+}

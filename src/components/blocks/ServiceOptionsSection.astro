@@ -1,0 +1,42 @@
+---
+import ServiceOptionCard from "../ui/ServiceOptionCard.astro";
+
+type Option = {
+  title: string;
+  image: {
+    src: string;
+    alt?: string;
+  };
+  ctaText: string;
+  ctaHref: string;
+};
+
+type Props = {
+  title: string;
+  description: string;
+  options: Option[];
+};
+
+const { title, description, options } = Astro.props as Props;
+---
+
+<section class="py-16 bg-[#0D0D0F] mt-16">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="max-w-3xl">
+      <h2 class="text-4xl font-bold text-white">{title}</h2>
+      <p class="mt-4 text-lg text-white whitespace-pre-line">
+        {description}
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="mt-16 grid gap-8 md:grid-cols-3">
+      {options.map((option) => (
+        <ServiceOptionCard {...option} />
+      ))}
+    </div>
+
+  </div>
+</section>
