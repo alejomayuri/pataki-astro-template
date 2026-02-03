@@ -7,14 +7,28 @@ interface Props {
   title?: string
   text?: string
   reverse?: boolean
+  backgroundImage?: string
+  overlay?: boolean
+  overlayOpacity?: number
 }
 
-const { image, title, text, reverse = false } = Astro.props
+const { image, title, text, reverse = false, backgroundImage, overlay = true, overlayOpacity} = Astro.props
 ---
 
-<section class="py-16">
+<section id="about" class="py-16 relative" style={`
+  ${backgroundImage ? `background-image: url(${backgroundImage});` : ""}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+`}>
+  {overlay && backgroundImage && (
+    <div
+      class="absolute inset-0 bg-black"
+      style={`opacity: ${overlayOpacity}`}
+    />
+  )}
   <div
-    class={`max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center ${
+    class={`relative z-10 max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center ${
       reverse ? 'md:flex-row-reverse' : ''
     }`}
   >
@@ -29,8 +43,8 @@ const { image, title, text, reverse = false } = Astro.props
 
     <!-- Content -->
     <div>
-      {title && <h2 class="text-4xl font-bold d mb-4">{title}</h2>}
-      {text && <p class="mt-4 text-lg leading-relaxed whitespace-pre-line">{text}</p>}
+      {title && <h2 class="text-4xl font-bold d mb-4 text-white">{title}</h2>}
+      {text && <p class="mt-4 text-lg leading-relaxed whitespace-pre-line text-white">{text}</p>}
     </div>
   </div>
 </section>

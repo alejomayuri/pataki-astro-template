@@ -12,56 +12,56 @@ const {
 } = Astro.props
 ---
 
-<section class="py-16">
+<section id="contact" class="py-16 bg-[#16161a]">
   <div class="max-w-2xl mx-auto px-4">
-    {title && <h2 class="text-3xl font-semibold mb-4">{title}</h2>}
+    {title && <h2 class="text-4xl font-bold text-white">{title}</h2>}
     {description && (
-      <p class="text-gray-600 mb-8">{description}</p>
+      <p class="mt-4 text-lg leading-relaxed whitespace-pre-line text-white">{description}</p>
     )}
 
-    <form class="space-y-6">
+    <form class="space-y-6 mt-8">
       <!-- Name -->
       <div>
-        <label class="block text-sm font-medium mb-1">
+        <label class="block text-sm font-medium mb-1 text-white">
           Name
         </label>
         <input
           type="text"
           name="name"
           required
-          class="w-full border rounded-lg px-4 py-2"
+          class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none"
         />
       </div>
 
       <!-- Email -->
       <div>
-        <label class="block text-sm font-medium mb-1">
+        <label class="block text-sm font-medium mb-1 text-white">
           Email
         </label>
         <input
           type="email"
           name="email"
           required
-          class="w-full border rounded-lg px-4 py-2"
+          class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none webkit-autofill:bg-[#1e1e22]"
         />
       </div>
 
       <!-- Message -->
       <div>
-        <label class="block text-sm font-medium mb-1">
+        <label class="block text-sm font-medium mb-1 text-white">
           Message
         </label>
         <textarea
           name="message"
           rows="5"
           required
-          class="w-full border rounded-lg px-4 py-2"
+          class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none webkit-autofill:bg-[#1e1e22] resize-none"
         ></textarea>
       </div>
 
       <button
         type="submit"
-        class="bg-black text-white px-6 py-3 rounded-lg"
+        class="bg-black text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-gray-800 transition"
       >
         {submitLabel}
       </button>

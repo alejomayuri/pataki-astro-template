@@ -10,3 +10,19 @@
 .hero-title-shadow-strong {
   text-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1e1e22 inset;
+  box-shadow: 0 0 0 1000px #1e1e22 inset;
+  -webkit-text-fill-color: #fff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+html {
+  scroll-behavior: smooth;
+}

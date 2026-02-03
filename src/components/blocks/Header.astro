@@ -1,0 +1,99 @@
+---
+const {
+  links = [],
+} = Astro.props as {
+  links?: { label: string; href: string }[];
+};
+---
+
+<header class="w-full py-6 px-6 bg-[#16161a] fixed top-0 left-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center">
+      <img src="/images/logo.png" alt="Logo" class="h-12" />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex gap-6 items-center">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-lg text-white hover:text-[#c89350] transition"
+        >
+          {link.label}
+        </a>
+      ))}
+
+      <a
+        href="#"
+        class="inline-block bg-white text-black px-8 py-3 rounded-xl text-sm font-medium hover:opacity-90 transition"
+      >
+        BOOK NOW
+      </a>
+    </nav>
+
+    <!-- Mobile button -->
+    <button
+      id="menu-toggle"
+      class="md:hidden text-white text-3xl"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div
+  id="mobile-menu"
+  class="z-50 flex fixed inset-0 bg-[#16161a] z-40 hidden flex-col items-center justify-center gap-8"
+>
+  {links.map((link) => (
+    <a
+      href={link.href}
+      class="text-2xl text-white hover:text-[#c89350]"
+      id="itemElement"
+    >
+      {link.label}
+    </a>
+  ))}
+
+  <a
+    href="#"
+    class="mt-6 inline-block bg-white text-black px-10 py-4 rounded-xl text-base font-medium"
+  >
+    BOOK NOW
+  </a>
+
+  <button
+    id="menu-close"
+    class="absolute top-6 right-6 text-white text-3xl"
+    aria-label="Close menu"
+  >
+    ✕
+  </button>
+</div>
+
+<script>
+    const toggle = document.getElementById("menu-toggle");
+    const close = document.getElementById("menu-close");
+    const menu = document.getElementById("mobile-menu");
+    const itemElements = document.querySelectorAll("#itemElement");
+
+    toggle?.addEventListener("click", () => {
+        menu?.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+    });
+
+    close?.addEventListener("click", () => {
+        menu?.classList.add("hidden");
+        document.body.style.overflow = "";
+    });
+
+    itemElements.forEach((item) => {
+        item.addEventListener("click", () => {
+        menu?.classList.add("hidden");
+        document.body.style.overflow = "";
+        });
+    });
+</script>
