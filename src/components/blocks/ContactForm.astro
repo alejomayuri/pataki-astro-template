@@ -10,6 +10,8 @@ const {
   description,
   submitLabel = "Send"
 } = Astro.props
+
+const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276"; 
 ---
 
 <section id="contact" class="py-16 bg-[#16161a]">
@@ -19,52 +21,87 @@ const {
       <p class="mt-4 text-lg leading-relaxed whitespace-pre-line text-white">{description}</p>
     )}
 
-    <form class="space-y-6 mt-8">
-      <!-- Name -->
+    <form id="contact-form" class="space-y-6 mt-8">
+      <input type="hidden" name="access_key" value={ACCESS_KEY} />
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
       <div>
-        <label class="block text-sm font-medium mb-1 text-white">
-          Name
-        </label>
-        <input
-          type="text"
-          name="name"
-          required
-          class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none"
-        />
+        <label class="block text-sm font-medium mb-1 text-white">Name</label>
+        <input type="text" name="name" required class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none" />
       </div>
 
-      <!-- Email -->
       <div>
-        <label class="block text-sm font-medium mb-1 text-white">
-          Email
-        </label>
-        <input
-          type="email"
-          name="email"
-          required
-          class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none webkit-autofill:bg-[#1e1e22]"
-        />
+        <label class="block text-sm font-medium mb-1 text-white">Email</label>
+        <input type="email" name="email" required class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none" />
       </div>
 
-      <!-- Message -->
       <div>
-        <label class="block text-sm font-medium mb-1 text-white">
-          Message
-        </label>
-        <textarea
-          name="message"
-          rows="5"
-          required
-          class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none webkit-autofill:bg-[#1e1e22] resize-none"
-        ></textarea>
+        <label class="block text-sm font-medium mb-1 text-white">Message</label>
+        <textarea name="message" rows="5" required class="w-full border rounded-lg px-4 py-2 bg-[#1e1e22] text-white border-gray-700 outline-none resize-none"></textarea>
       </div>
 
       <button
+        id="submit-btn"
         type="submit"
-        class="bg-black text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-gray-800 transition"
+        class="bg-black text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submitLabel}
       </button>
+
+      <div id="result" class="hidden mt-4 p-4 rounded-lg text-center font-medium"></div>
     </form>
   </div>
 </section>
+
+<script is:inline>
+  const form = document.getElementById('contact-form');
+  const result = document.getElementById('result');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    // Estado de carga
+    result.classList.remove('hidden', 'bg-green-500/20', 'text-green-400', 'bg-red-500/20', 'text-red-400');
+    result.classList.add('block', 'text-white');
+    result.innerHTML = "Enviando...";
+    submitBtn.disabled = true;
+
+    fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                // Éxito
+                result.classList.add('bg-green-500/20', 'text-green-400');
+                result.innerHTML = "¡Recibimos tu mensaje!";
+                form.reset();
+            } else {
+                // Error del servidor
+                console.log(response);
+                result.classList.add('bg-red-500/20', 'text-red-400');
+                result.innerHTML = json.message;
+            }
+        })
+        .catch(error => {
+            // Error de red
+            console.log(error);
+            result.innerHTML = "Algo salió mal, intenta de nuevo.";
+        })
+        .then(function() {
+            // Reactivar botón después de 3 segundos o al finalizar
+            setTimeout(() => {
+                submitBtn.disabled = false;
+            }, 3000);
+        });
+  });
+</script>
