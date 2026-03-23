@@ -86,7 +86,7 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
 
     bookResult.classList.remove('hidden', 'bg-green-500/20', 'text-green-400', 'bg-red-500/20', 'text-red-400');
     bookResult.classList.add('block', 'text-white');
-    bookResult.innerHTML = "Procesando reserva...";
+    bookResult.innerHTML = "Processing reservation...";
     bookSubmitBtn.disabled = true;
 
     fetch('https://api.web3forms.com/submit', {
@@ -97,15 +97,15 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
         .then(async (response) => {
             if (response.status == 200) {
                 bookResult.classList.add('bg-green-500/20', 'text-green-400');
-                bookResult.innerHTML = "¡Recibimos tu mensaje!";
+                bookResult.innerHTML = "We received your message!";
                 bookForm.reset();
             } else {
                 bookResult.classList.add('bg-red-500/20', 'text-red-400');
-                bookResult.innerHTML = "Error al enviar, intenta de nuevo.";
+                bookResult.innerHTML = "Error submitting form, please try again.";
             }
         })
         .catch(error => {
-            bookResult.innerHTML = "Error de conexión.";
+            bookResult.innerHTML = "Connection error.";
         })
         .then(function() {
             setTimeout(() => { bookSubmitBtn.disabled = false; }, 3000);

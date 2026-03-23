@@ -83,7 +83,7 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
             if (response.status == 200) {
                 // Éxito
                 result.classList.add('bg-green-500/20', 'text-green-400');
-                result.innerHTML = "¡Recibimos tu mensaje!";
+                result.innerHTML = "We received your message!";
                 form.reset();
             } else {
                 // Error del servidor
@@ -95,7 +95,7 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
         .catch(error => {
             // Error de red
             console.log(error);
-            result.innerHTML = "Algo salió mal, intenta de nuevo.";
+            result.innerHTML = "Connection error.";
         })
         .then(function() {
             // Reactivar botón después de 3 segundos o al finalizar
