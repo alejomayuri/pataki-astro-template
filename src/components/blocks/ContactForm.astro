@@ -67,7 +67,7 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
     // Estado de carga
     result.classList.remove('hidden', 'bg-green-500/20', 'text-green-400', 'bg-red-500/20', 'text-red-400');
     result.classList.add('block', 'text-white');
-    result.innerHTML = "Enviando...";
+    result.innerHTML = "Processing your message...";
     submitBtn.disabled = true;
 
     fetch('https://api.web3forms.com/submit', {
