@@ -27,7 +27,11 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
     <form id="book-form" class="space-y-6 mt-8">
       <input type="hidden" name="access_key" value={ACCESS_KEY} />
       <input type="hidden" name="subject" value="Book now message" />
-      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+      
+      <!-- CAMPO FANTASMA (HONEYPOT) MEJORADO -->
+      <div class="hidden" aria-hidden="true" style="display: none;">
+        <input type="text" name="_honeypot" tabindex="-1" autocomplete="off" />
+      </div>
 
       <div>
         <label class="block text-sm font-medium mb-1 text-white">Name</label>
@@ -73,7 +77,6 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
 </section>
 
 <script is:inline>
-  // Usamos IDs específicos para evitar conflictos si ambos formularios están en la misma página
   const bookForm = document.getElementById('book-form');
   const bookResult = document.getElementById('book-result');
   const bookSubmitBtn = document.getElementById('book-submit-btn');
@@ -81,6 +84,17 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
   bookForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(bookForm);
+    
+    // 1. INTERCEPCIÓN ANTISPAM LOCAL
+    // Si el bot cayó en la trampa, simulamos un envío exitoso sin llamar a la API
+    if (formData.get('_honeypot')) {
+        bookResult.classList.remove('hidden', 'bg-red-500/20', 'text-red-400');
+        bookResult.classList.add('block', 'bg-green-500/20', 'text-green-400');
+        bookResult.innerHTML = "We received your message!";
+        bookForm.reset();
+        return;
+    }
+
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 

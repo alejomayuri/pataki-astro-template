@@ -23,7 +23,11 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
 
     <form id="contact-form" class="space-y-6 mt-8">
       <input type="hidden" name="access_key" value={ACCESS_KEY} />
-      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+      
+      <!-- CAMPO FANTASMA (HONEYPOT) MEJORADO -->
+      <div class="hidden" aria-hidden="true" style="display: none;">
+        <input type="text" name="_honeypot" tabindex="-1" autocomplete="off" />
+      </div>
 
       <div>
         <label class="block text-sm font-medium mb-1 text-white">Name</label>
@@ -61,6 +65,17 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(form);
+    
+    // 1. FILTRO ANTISPAM LOCAL (Honeypot)
+    // Si el bot llenó el campo invisible, lo engañamos haciéndole creer que funcionó
+    if (formData.get('_honeypot')) {
+        result.classList.remove('hidden', 'bg-red-500/20', 'text-red-400');
+        result.classList.add('block', 'bg-green-500/20', 'text-green-400');
+        result.innerHTML = "We received your message!";
+        form.reset();
+        return; 
+    }
+
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
@@ -81,24 +96,20 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
         .then(async (response) => {
             let json = await response.json();
             if (response.status == 200) {
-                // Éxito
                 result.classList.add('bg-green-500/20', 'text-green-400');
                 result.innerHTML = "We received your message!";
                 form.reset();
             } else {
-                // Error del servidor
                 console.log(response);
                 result.classList.add('bg-red-500/20', 'text-red-400');
                 result.innerHTML = json.message;
             }
         })
         .catch(error => {
-            // Error de red
             console.log(error);
             result.innerHTML = "Connection error.";
         })
         .then(function() {
-            // Reactivar botón después de 3 segundos o al finalizar
             setTimeout(() => {
                 submitBtn.disabled = false;
             }, 3000);
