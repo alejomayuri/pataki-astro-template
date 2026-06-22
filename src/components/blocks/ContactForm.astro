@@ -66,8 +66,6 @@ const ACCESS_KEY = "4c0baca3-34aa-454b-baed-d52a3efa0276";
     e.preventDefault();
     const formData = new FormData(form);
     
-    // 1. FILTRO ANTISPAM LOCAL (Honeypot)
-    // Si el bot llenó el campo invisible, lo engañamos haciéndole creer que funcionó
     if (formData.get('_honeypot')) {
         result.classList.remove('hidden', 'bg-red-500/20', 'text-red-400');
         result.classList.add('block', 'bg-green-500/20', 'text-green-400');
