@@ -11,6 +11,7 @@ type Item = {
 type Contact = {
   phone?: string;
   email?: string;
+  address?: string;
 };
 
 type Props = {
@@ -29,7 +30,7 @@ const {
   description,
   image,
   items = [],
-  contact,
+  contact
 } = Astro.props;
 ---
 
@@ -78,6 +79,9 @@ const {
             )}
             {contact.email && (
                 <p class="text-lg">✉️ <a href={`mailto:${contact.email}`} class="text-white">{contact.email}</a></p>
+            )}
+            {contact.address && (
+                <p class="text-lg">📍 <a href={`https://maps.google.com/?q=${encodeURIComponent(contact.address)}`} target="_blank" class="text-white">{contact.address}</a></p>
             )}
             </div>
         )}
