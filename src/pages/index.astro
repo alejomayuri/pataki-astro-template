@@ -38,32 +38,53 @@ import ContactForm from "../components/blocks/ContactForm.astro";
 	/>
 	<ServiceOptionsSection
 		title="Rates"
-		description={`Embark on a luxurious journey during Telluride Ski Season with our exclusive rates, ensuring a seamless and enjoyable experience for you and your party.
-
-			All rates are $350 + gratuity and airport fees each way.
-			Gratuity and Airport Fees are included.
-			Rates are for the entire vehicle (7 Passenger Limit Per SUV).`}
 		options={[
 			{
-				title: "Private Airport Transportation",
-				image: { src: "/images/option1.jpg" },
-				ctaText: "RESERVE NOW",
-				ctaHref: "/book-now",
+			title: "Private Airport Transportation",
+			image: { src: "/images/option1.jpg" },
+			ctaText: "RESERVE NOW",
+			ctaHref: "/book-now",
 			},
 			{
-				title: "Weddings and Groups",
-				image: { src: "/images/option2.jpg" },
-				ctaText: "RESERVE NOW",
-				ctaHref: "/book-now",
+			title: "Weddings and Groups",
+			image: { src: "/images/option2.jpg" },
+			ctaText: "RESERVE NOW",
+			ctaHref: "/book-now",
 			},
 			{
-				title: "Private Car Services",
-				image: { src: "/images/option3.jpg" },
-				ctaText: "RESERVE NOW",
-				ctaHref: "/book-now",
+			title: "Private Car Services",
+			image: { src: "/images/option3.jpg" },
+			ctaText: "RESERVE NOW",
+			ctaHref: "/book-now",
 			},
 		]}
-	/>
+		>
+			<!-- Contenido que va al Slot "description" -->
+			<div slot="description" class="space-y-4">
+				<h3 class="text-xl font-semibold text-gray-200">Telluride Ski Season Luxury Transportation</h3>
+
+				<p>
+				Embark on a luxurious and seamless journey during Telluride Ski Season with our exclusive transportation rates, designed to provide a comfortable and exceptional experience for you and your party.
+				</p>
+
+				<div class="py-2 border-y border-gray-800">
+				<p class="text-sm uppercase tracking-wider text-gray-400">Private SUV Transfer</p>
+				<p class="text-3xl font-extrabold text-white">$499.00 <span class="text-base font-normal text-gray-400">each way</span></p>
+				</div>
+
+				<ul class="list-disc list-inside space-y-1 text-base text-gray-300">
+				<li>Rates are for the entire private vehicle, not per passenger.</li>
+				<li>Maximum capacity: 7 passengers per SUV.</li>
+				<li>Driver gratuity and airport fees are included in the rate.</li>
+				<li>Rates apply to transfers to and from the airport.</li>
+				<li>Additional services or special transportation requests may be subject to additional charges.</li>
+				</ul>
+
+				<p class="italic text-gray-400 text-base">
+				Enjoy a comfortable, private, and personalized transportation experience throughout your Telluride stay.
+				</p>
+			</div>
+		</ServiceOptionsSection>
 	<ImageTextSection
 		image={{
 			src: "/images/about.jpg",

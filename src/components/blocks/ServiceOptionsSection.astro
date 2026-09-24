@@ -13,7 +13,7 @@ type Option = {
 
 type Props = {
   title: string;
-  description: string;
+  description?: string; // Ahora es opcional
   options: Option[];
 };
 
@@ -24,11 +24,17 @@ const { title, description, options } = Astro.props as Props;
   <div class="max-w-6xl mx-auto px-6">
 
     <!-- Header -->
-    <div class="max-w-3xl">
-      <h2 class="text-4xl font-bold text-white">{title}</h2>
-      <p class="mt-4 text-lg text-white whitespace-pre-line">
-        {description}
-      </p>
+    <div class="max-w-3xl text-white">
+      <h2 class="text-4xl font-bold">{title}</h2>
+      
+      {/* Muestra la prop simple si existe, o el Slot si se pasa contenido HTML inside */}
+      {description ? (
+        <p class="mt-4 text-lg whitespace-pre-line">{description}</p>
+      ) : (
+        <div class="mt-4 text-lg space-y-4">
+          <slot name="description" />
+        </div>
+      )}
     </div>
 
     <!-- Grid -->
